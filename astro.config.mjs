@@ -1,9 +1,9 @@
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
-import tailwind from "@astrojs/tailwind";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import swup from "@swup/astro";
+import tailwindcss from "@tailwindcss/vite";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import { defineConfig } from "astro/config";
@@ -33,9 +33,6 @@ export default defineConfig({
 		collectionsBackwardsCompat: true,
 	},
 	integrations: [
-		tailwind({
-			nesting: true,
-		}),
 		swup({
 			theme: false,
 			animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
@@ -157,6 +154,7 @@ export default defineConfig({
 		],
 	},
 	vite: {
+		plugins: [tailwindcss()],
 		build: {
 			rollupOptions: {
 				onwarn(warning, warn) {
