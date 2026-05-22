@@ -5,7 +5,46 @@
         @apply !shadow-none;
     }
 
+    pre {
+        @apply relative;
+    }
+
     .title {
         font-family: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
+}
+
+.expressive-code .copy-btn {
+    all: initial;
+    @apply absolute right-3 top-3 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg
+    bg-[oklch(0.45_0.01_var(--hue))] text-sm opacity-0 shadow-lg shadow-black/50 transition-all ease-in-out
+    hover:bg-[oklch(0.50_0.01_var(--hue))] active:scale-90 active:bg-[oklch(0.55_0.01_var(--hue))]
+    dark:bg-[oklch(0.30_0.02_var(--hue))] dark:hover:bg-[oklch(0.35_0.03_var(--hue))]
+    dark:active:bg-[oklch(0.40_0.03_var(--hue))];
+}
+
+.expressive-code .frame:hover .copy-btn,
+.expressive-code .copy-btn:focus-visible,
+.expressive-code .copy-btn.success {
+    @apply opacity-100;
+}
+
+.expressive-code .copy-btn-icon {
+    @apply pointer-events-none absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 fill-white transition;
+}
+
+.expressive-code .copy-btn .copy-icon {
+    @apply fill-white opacity-100 dark:fill-white/75;
+}
+
+.expressive-code .copy-btn.success .copy-icon {
+    @apply fill-[var(--deep-text)] opacity-0;
+}
+
+.expressive-code .copy-btn .success-icon {
+    @apply fill-white opacity-0;
+}
+
+.expressive-code .copy-btn.success .success-icon {
+    @apply opacity-100;
 }
