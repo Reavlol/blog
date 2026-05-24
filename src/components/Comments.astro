@@ -1,0 +1,70 @@
+---
+import { commentConfig } from "../config";
+
+const { enable, provider, giscus } = commentConfig;
+
+const shouldRenderGiscus = enable && provider === "giscus";
+---
+
+{shouldRenderGiscus && (
+  <section class="card-base px-6 md:px-9 py-6 rounded-(--radius-large) mb-5">
+    <h2 class="text-xl font-bold mb-4 text-black/90 dark:text-white/90">
+      Comments
+    </h2>
+
+    <script is:inline type="module" src="https://esm.sh/giscus"></script>
+
+    <giscus-widget
+      id="comments"
+      repo={giscus.repo}
+      repoId={giscus.repoId}
+      category={giscus.category}
+      categoryId={giscus.categoryId}
+      mapping={giscus.mapping}
+      strict={giscus.strict}
+      reactionsEnabled={giscus.reactionsEnabled}
+      emitMetadata={giscus.emitMetadata}
+      inputPosition={giscus.inputPosition}
+      theme={giscus.darkTheme}
+      lang={giscus.lang}
+      loading={giscus.loading}
+    />
+
+    <script define:vars={{ giscus }} is:inline>
+      function getGiscusTheme() {
+        const isDark =
+          document.documentElement.classList.contains("dark") ||
+          localStorage.getItem("theme") === "dark";
+
+        return isDark ? giscus.darkTheme : giscus.lightTheme;
+      }
+
+      function updateGiscusTheme() {
+        const widget = document.querySelector("giscus-widget");
+
+        if (!widget) return;
+
+        widget.setAttribute("theme", getGiscusTheme());
+      }
+
+      updateGiscusTheme();
+
+      if (window.giscusThemeObserver) {
+        window.giscusThemeObserver.disconnect();
+      }
+
+      window.giscusThemeObserver = new MutationObserver(updateGiscusTheme);
+
+      window.giscusThemeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+
+      window.addEventListener("storage", updateGiscusTheme);
+
+      document.addEventListener("click", () => {
+        setTimeout(updateGiscusTheme, 100);
+      });
+    </script>
+  </section>
+)}
