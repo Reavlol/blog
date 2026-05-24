@@ -25,8 +25,7 @@ A static blog template built with [Astro](https://astro.build).
 
 ### 🛠️ My Custom Additions
 
-- [ ] **Comments Section**
-- [ ] **Estimated Reading Time Indicator**
+- [x] **Comments Section**
 - [ ] **News Letter Sign up**
 - [ ] **Small Aesthetic Changes** (Likely more corpo)
 - [x] **Fix the Code Rendering and Copy Code Button I Broke** (Whoopsie)
